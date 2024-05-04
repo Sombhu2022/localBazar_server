@@ -5,6 +5,8 @@ import cors from 'cors'
 
 // routers
 import userRouter from './routes/userRoute.js'
+import productRouter from './routes/productRoute.js'
+import shopRouter from './routes/shopRoute.js'
 
 const server = express();
 conntectDB()
@@ -22,6 +24,8 @@ server.use(
 
 // routes
 server.use('/api/user', userRouter)
+server.use('/api/shop', shopRouter)
+server.use('/api/product', productRouter)
 
 server.get('/', (req, res) => {
     res.send('Hello World!');
