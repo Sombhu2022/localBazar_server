@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// database connection to the atlas
+// database connection to the atlas db
 export const conntectDB = () => {
     mongoose.connect(process.env.MONGO_URL).then(() => {
         console.log("DB connected");
