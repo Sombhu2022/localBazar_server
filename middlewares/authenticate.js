@@ -5,6 +5,7 @@ export const isAuthenticate = async (req, res, next) => {
     try {
      
         const token = req.headers.token
+        console.log(req.headers.token);
 
         if (!token) {
 

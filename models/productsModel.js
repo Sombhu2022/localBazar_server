@@ -23,13 +23,13 @@ const productSchema = new mongoose.Schema({
         type: Number,
     },
     description: {
-        type: Number,
+        type: String,
     },
     productImage: {
         url: String,
         public_id: String
     },
-    shop: {
+    shopRef: {
         type: mongoose.Schema.ObjectId,
         ref: 'Shop'
     },

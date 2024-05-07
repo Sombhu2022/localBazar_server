@@ -32,12 +32,12 @@ const shopSchema = new mongoose.Schema({
             rating: Number
         }
     ],
-    // products: [
-    //     {
-    //         type: mongoose.Schema.ObjectId,
-    //         ref: 'Product'
-    //     }
-    // ],
+    products: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Product'
+        }
+    ],
 
     location: {
         country: String,

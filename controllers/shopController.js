@@ -24,7 +24,7 @@ export const createShop = async (req, res) => {
         const newShop = await Shop.create({
             shopName,
             location,
-            // owner: req.user._id,
+            owner: req.user._id,
             // shopImage: {
             //     url: ,
             //     public_id: 
@@ -48,7 +48,9 @@ export const createShop = async (req, res) => {
 export const getAllShops = async (req, res) => {
     try {
 
-        const allShops = await Shop.find()
+        const allShops = await Shop.find().populate('owner')
+
+        console.log("ZZZ", req.user);
 
         res.status(200).json({
             success: true,
@@ -70,9 +72,16 @@ export const getShopDetails = async (req, res) => {
 
         const shop = await Shop.findById(shopid)
 
+        if(!shop) {
+            return res.status(200).json({
+                success: false,
+                message: "Shop not found"
+            })
+        }
+
         res.status(200).json({
             success: true,
-            message: "Shop created",
+            message: "Shop Details",
             shop
         })
     } catch (error) {
@@ -110,6 +119,14 @@ export const editShopImage = async (req, res) => {
 export const editShopDetails = async (req, res) => {
     try {
         const { shopid } = req.params
+
+        const checkShop = await Shop.findById(shopid)
+        if (req.user._id != checkShop.owner && !checkShop) {
+            return res.status(200).json({
+                success: false,
+                message: "You are not the owner of this shop"
+            })
+        }
 
 
         const { shopName, location } = req.body;
