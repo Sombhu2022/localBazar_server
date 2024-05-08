@@ -17,7 +17,67 @@ This documentation provides an overview of the routes and functionalities availa
 
 - This API requires authentication for certain routes. Ensure to include the authentication token in the request headers.
 
-### Routes
+
+# Shop Routes
+
+#### Get All Shops
+
+- **URL:** `/api/shops`
+- **Method:** GET
+- **Authentication Required:** No
+- **Response:** Retrieves details of all shops.
+
+#### Create Shop
+
+- **URL:** `/api/shops/create`
+- **Method:** POST
+- **Authentication Required:** Yes
+- **Request Body:**
+- `shopName`: Name of the shop (String)
+- `location`: Location details of the shop (Object)
+ - `country`: Country of the shop (String)
+ - `city`: Array of cities where the shop is located (Array of Strings)
+ - `pin`: PIN code of the shop (Number)
+
+#### Get Shop Details
+
+- **URL:** `/api/shops/:shopid`
+- **Method:** GET
+- **Authentication Required:** No
+- **Parameters:**
+- `shopid`: ID of the shop
+- **Response:** Retrieves details of a specific shop.
+
+#### Edit Shop Details
+
+- **URL:** `/api/shops/:shopid`
+- **Method:** PATCH
+- **Authentication Required:** Yes
+- **Parameters:**
+- `shopid`: ID of the shop
+- **Request Body:** Updated details of the shop.
+
+#### Edit Shop Logo
+
+- **URL:** `/api/shops/logo/:shopid`
+- **Method:** PATCH
+- **Authentication Required:** Yes
+- **Parameters:**
+- `shopid`: ID of the shop
+- **Request Body:** Updated shop logo.
+
+#### Delete Shop
+
+- **URL:** `/api/shops/:shopid`
+- **Method:** DELETE
+- **Authentication Required:** Yes
+- **Parameters:**
+- `shopid`: ID of the shop
+
+
+
+
+# Product Routes
 
 #### Create Product
 
