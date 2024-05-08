@@ -86,7 +86,7 @@ export const getAllProductsOfAnyShop = async (req, res) => {
             shopRef: shopid
         })
 
-      
+
 
         res.status(200).json({
             success: true,
@@ -110,11 +110,19 @@ export const productDetails = async (req, res) => {
 
         const product = await Product.findById(productid).populate('shopRef')
 
-      
+
+
+        if (!product) {
+            return res.status(200).json({
+                success: false,
+                message: "Product Not Found",
+            })
+        }
+
 
         res.status(200).json({
             success: true,
-            message: "All Products of Shop",
+            message: "Product Details",
             product
         })
     } catch (error) {
@@ -126,18 +134,51 @@ export const productDetails = async (req, res) => {
 }
 
 
-// ***************** TODO ******************
 export const updateProductDetails = async (req, res) => {
+    // {
+    //     "productName": "Sample Product",
+    //     "price": 19.99,
+    //     "stock": 100,
+    //     "discount": 5,
+    //     "totalPrice": 18.99,
+    //     "description": "This is a sample product description.",
+    // }
     try {
-        
+
+        const {
+            productName,
+            price,
+            stock,
+            discount,
+            totalPrice,
+            description,
+        } = req.body;
+
         const { productid } = req.params
-        
-        const product = await Product.findById(productid).populate('shopRef')
-   
-        
+
+        const product = await Product.findByIdAndUpdate(productid, {
+
+            productName,
+            price,
+            stock,
+            discount,
+            totalPrice,
+            description,
+        }, { returnDocument: 'after' })
+
+
+        if (!product) {
+            return res.status(200).json({
+                success: false,
+                message: "No Product found"
+            })
+        }
+
+
+
         res.status(200).json({
             success: true,
-            message: "All Products of Shop",
+            message: "Product updated successfully",
             product
         })
     } catch (error) {
@@ -153,16 +194,16 @@ export const updateProductDetails = async (req, res) => {
 // ***************** TODO ******************
 export const updateProductPictures = async (req, res) => {
     try {
-        
+
         const { productid } = req.params
-        
+
         const product = await Product.findById(productid).populate('shopRef')
-        
-        
-        
+
+
+
         res.status(200).json({
             success: true,
-            message: "All Products of Shop",
+            message: "Product image updated",
             product
         })
     } catch (error) {
@@ -171,7 +212,7 @@ export const updateProductPictures = async (req, res) => {
             message: "Try again"
         })
     }
-    
+
 }
 
 
@@ -183,13 +224,12 @@ export const deleteProduct = async (req, res) => {
 
         const { productid } = req.params
 
-        const product = await Product.findById(productid).populate('shopRef')
+        const product = await Product.findByIdAndDelete(productid)
 
-      
 
         res.status(200).json({
             success: true,
-            message: "All Products of Shop",
+            message: "Product deleted successfully",
             product
         })
     } catch (error) {
