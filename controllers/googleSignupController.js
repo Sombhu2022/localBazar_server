@@ -5,9 +5,10 @@ export const googleSignup = async (req, res) => {
     try {
 
         
-        const { name, email, profilePic } = req.body
+        const { name, email, profilePic , role } = req.body
         let user = await User.findOne({ email })
-        console.log(req.headers);
+        console.log(req.headers );
+        console.log(req.user);
 
         if (user) {
             const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
@@ -25,11 +26,13 @@ export const googleSignup = async (req, res) => {
             let user = await User.create({
                 name,
                 email,
-                profilePic
+                profilePic,
+                role
             })
             const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
             user.token = token;
             user.save()
+
             res.status(200).json({
                 success: true,
                 message: "Registered successful",

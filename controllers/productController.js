@@ -1,6 +1,7 @@
 import { Product } from "../models/productsModel.js";
 import { Shop } from "../models/shopModel.js";
 import { User } from "../models/userModel.js"
+import { imageUploader } from "../utils/imageUploder.js";
 
 export const createProduct = async (req, res) => {
     try {
@@ -19,8 +20,10 @@ export const createProduct = async (req, res) => {
         // }
 
         // Create the product
-
+ console.log( "body",req.body);
         // *****************TODO**** image upload Handle*********************
+        
+        
         const {
             productName,
             price,
@@ -32,8 +35,12 @@ export const createProduct = async (req, res) => {
             shopRef
         } = req.body;
 
+        const data = await imageUploader(productImage) 
+        // console.log(data);
         const shop = await Shop.findById(shopRef);
+        console.log("shop" , shop);
         if (!shop) {
+            console.log("shop not fount");
             return res.status(200).json({
                 success: false,
                 message: "Shop Not Found",
@@ -47,19 +54,22 @@ export const createProduct = async (req, res) => {
             discount,
             totalPrice,
             description,
-            productImage,
+            productImage:{
+                url:data?.url,
+                public_id:data?.public_id
+            },
             shopRef
         });
-
+    //    console.log("product",product);
         // Find the shop by ID
 
-
-
+        
         // Add the product to the shop's products array
         shop.products.push(product._id);
-
+        
         // Save the shop with the new product
         await shop.save();
+        console.log("ok this is run ok success");
 
 
         res.status(200).json({
