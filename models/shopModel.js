@@ -10,6 +10,11 @@ const shopSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     },
+    customerCareNumber:[
+        {
+            type:Number
+        }
+    ],
 
     shopImage: {
         url: String,
