@@ -17,6 +17,7 @@ const server = express();
 conntectDB()
 
 // middlewares
+
 server.use(express.json({limit:'50mb'}))
 server.use(express.urlencoded({extended:true , limit:"50mb"}))
 server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -36,7 +37,7 @@ cloudinary.config({
 
 server.use(
     cors({
-        origin: process.env.FRONTEND_URL,
+        origin: process.env.FRONTEND_URL || 'http://localhost:5173',
         exposedHeaders: ['X-Total-Count'],
         methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
         credentials: true,
