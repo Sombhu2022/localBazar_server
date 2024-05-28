@@ -8,7 +8,7 @@ export const imageUploader =async(image)=>{
     })
     return data
    } catch (error) {
-      console.log(error);
+      console.log("error image not uploaded",error);
    }
 
 }
