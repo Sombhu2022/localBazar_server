@@ -42,6 +42,7 @@ export const createProduct = async (req, res) => {
         console.log("shop", shop);
         if (!shop) {
             console.log("shop not fount");
+            console.log("shop not fount");
             return res.status(200).json({
                 success: false,
                 message: "Shop Not Found",
@@ -67,9 +68,10 @@ export const createProduct = async (req, res) => {
 
         // Add the product to the shop's products array
         shop.products.push(product._id);
-
+        
         // Save the shop with the new product
         await shop.save();
+        console.log("ok this is run ok success");
         console.log("ok this is run ok success");
 
 
@@ -99,6 +101,7 @@ export const getAllProductsOfAnyShop = async (req, res) => {
 
 
 
+
         res.status(200).json({
             success: true,
             message: "All Products of Shop",
@@ -122,7 +125,7 @@ export const productDetails = async (req, res) => {
         const product = await Product.findById(productid).populate('shopRef')
         res.status(200).json({
             success: true,
-            message: "All Products of Shop",
+            message: "Product Details",
             product
         })
     } catch (error) {
@@ -134,7 +137,6 @@ export const productDetails = async (req, res) => {
 }
 
 
-// ***************** TODO ******************
 export const updateProductDetails = async (req, res) => {
     try {
 
@@ -143,7 +145,7 @@ export const updateProductDetails = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "All Products of Shop",
+            message: "Product updated successfully",
             product
         })
     } catch (error) {
@@ -159,6 +161,7 @@ export const updateProductDetails = async (req, res) => {
 // ***************** TODO ******************
 export const updateProductPictures = async (req, res) => {
     try {
+
 
         const { productid } = req.params
         const { productImage } = req.body
@@ -205,6 +208,7 @@ export const updateProductPictures = async (req, res) => {
         })
     }
 
+
 }
 
 
@@ -227,7 +231,7 @@ export const deleteProduct = async (req, res) => {
         }
         res.status(200).json({
             success: true,
-            message: "All Products of Shop",
+            message: "Product deleted successfully",
             product
         })
     } catch (error) {
